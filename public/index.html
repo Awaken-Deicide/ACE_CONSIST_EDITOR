@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>Train Form</title>
+</head>
+<body class="bg-gray-100">
+  <div class="logo-container flex items-center py-8 px-4 ">
+    <img src="images/logo.png" alt="Logo" class="logo w-10 h-10 mr-2">
+    <h1 class="text-5xl font-bold ">ACE CONSIST EDITOR</h1>
+  </div>
+  <div class="container p-4 rounded-lg bg-purple-600 shadow-lg mt-8 mb-4">
+    <form id="trainForm">
+      <div class="overflow">
+        <table class="border-purple-600">
+          <thead>
+            <tr>
+              <th>Train No.</th>
+              <th>Returning Train No.</th>
+              <th>LOCO1</th>
+              <th>LOCO2</th>
+              <th>CAR1</th>
+              <th>CAR2</th>
+              <th>CAR3</th>
+              <th>CAR4</th>
+              <th>CAR5</th>
+              <th>CAR6</th>
+              <th>CAR7</th>
+              <th>CAR8</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="Train1">
+              <td><input type="text" name="trainNo1"></td>
+              <td><input type="text" name="returningTrainNo1"></td>
+              <td><input type="text" name="loco11"></td>
+              <td><input type="text" name="loco21"></td>
+              <td><input type="text" name="car11"></td>
+              <td><input type="text" name="car21"></td>
+              <td><input type="text" name="car31"></td>
+              <td><input type="text" name="car41"></td>
+              <td><input type="text" name="car51"></td>
+              <td><input type="text" name="car61"></td>
+              <td><input type="text" name="car71"></td>
+              <td><input type="text" name="car81"></td>
+            </tr>
+            <tr id="Train2">
+                <td><input type="text" name="trainNo2"></td>
+                <td><input type="text" name="returningTrainNo2"></td>
+                <td><input type="text" name="loco12"></td>
+                <td><input type="text" name="loco22"></td>
+                <td><input type="text" name="car12"></td>
+                <td><input type="text" name="car22"></td>
+                <td><input type="text" name="car32"></td>
+                <td><input type="text" name="car42"></td>
+                <td><input type="text" name="car52"></td>
+                <td><input type="text" name="car62"></td>
+                <td><input type="text" name="car72"></td>
+                <td><input type="text" name="car82"></td>
+            </tr>
+            <tr id="Train3">
+                <td><input type="text" name="trainNo3"></td>
+                <td><input type="text" name="returningTrainNo3"></td>
+                <td><input type="text" name="loco13"></td>
+                <td><input type="text" name="loco23"></td>
+                <td><input type="text" name="car13"></td>
+                <td><input type="text" name="car23"></td>
+                <td><input type="text" name="car33"></td>
+                <td><input type="text" name="car43"></td>
+                <td><input type="text" name="car53"></td>
+                <td><input type="text" name="car63"></td>
+                <td><input type="text" name="car73"></td>
+                <td><input type="text" name="car83"></td>
+            </tr>
+            <tr id="Train4">
+                <td><input type="text" name="trainNo4"></td>
+                <td><input type="text" name="returningTrainNo4"></td>
+                <td><input type="text" name="loco14"></td>
+                <td><input type="text" name="loco24"></td>
+                <td><input type="text" name="car14"></td>
+                <td><input type="text" name="car24"></td>
+                <td><input type="text" name="car34"></td>
+                <td><input type="text" name="car44"></td>
+                <td><input type="text" name="car54"></td>
+                <td><input type="text" name="car64"></td>
+                <td><input type="text" name="car74"></td>
+                <td><input type="text" name="car84"></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+      <label for="fromDate" class="block mt-2 font-medium text-gray-700">From Date:</label>
+      <input type="date" id="fromDate" name="fromDate" class="block w-full mt-1 rounded-md shadow-sm" required>
+      
+      <label for="toDate" class="block mt-2 font-medium text-gray-700">To Date:</label>
+      <input type="date" id="toDate" name="toDate" class="block w-full mt-1 rounded-md shadow-sm" required>
+      
+
+      <button type="submit" class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-4 rounded mt-4">
+        Submit
+      </button>
+    </form>
+    
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
