@@ -49,6 +49,10 @@
     white-space: nowrap;
     text-overflow: ellipsis; /* Show ellipsis (...) for overflow */
   }
+
+  td > input {
+    text-transform: uppercase;
+  }
   
   thead {
     background-color: #5b0f66ff;

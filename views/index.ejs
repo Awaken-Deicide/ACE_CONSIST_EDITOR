@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>ACE Consist Editor</title>
+</head>
+<body class="bg-gray-100">
+  <div class="logo-container flex items-center py-8 px-4 ">
+    <img src="images/logo.png" alt="Logo" class="logo w-10 h-10 mr-2">
+    <h1 class="text-5xl font-bold ">ACE CONSIST EDITOR</h1>
+  </div>
+  <div class="container p-4 rounded-lg bg-purple-600 shadow-lg mt-8 mb-4">
+    <form id="trainForm">
+      <div class="overflow">
+        <table class="border-purple-600">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>RETURN NAME</th>
+              <th>LOCO-1</th>
+              <th>LOCO-2</th>
+              <th>CAR-1</th>
+              <th>CAR-2</th>
+              <th>CAR-3</th>
+              <th>CAR-4</th>
+              <th>CAR-5</th>
+              <th>CAR-6</th>
+              <th>CAR-7</th>
+              <th>CAR-8</th>
+            </tr>
+          </thead>
+          <tbody id="trainTableBody">
+            <% for (let i = 1; i <= numTrains; i++) { %>
+              <tr id="Train<%= i %>">
+                <td><input type="text" name="trainNo<%= i %>"></td>
+                <td><input type="text" name="returningTrainNo<%= i %>"></td>
+                <td><input type="text" name="loco1-<%= i %>"></td>
+                <td><input type="text" name="loco2-<%= i %>"></td>
+                <td><input type="text" name="car1-<%= i %>"></td>
+                <td><input type="text" name="car2-<%= i %>"></td>
+                <td><input type="text" name="car3-<%= i %>"></td>
+                <td><input type="text" name="car4-<%= i %>"></td>
+                <td><input type="text" name="car5-<%= i %>"></td>
+                <td><input type="text" name="car6-<%= i %>"></td>
+                <td><input type="text" name="car7-<%= i %>"></td>
+                <td><input type="text" name="car8-<%= i %>"></td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+        
+      </div>
+
+      <button type="button" id="addRowBtn" class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-4 rounded mt-4">Add Row</button>
+
+      <label for="fromDate" class="block mt-2 font-medium text-yellow-400">From Date:</label>
+      <input type="date" id="fromDate" name="fromDate" class="block w-full mt-1 rounded-md shadow-sm" required>
+      
+      <label for="toDate" class="block mt-2 font-medium text-yellow-400">To Date:</label>
+      <input type="date" id="toDate" name="toDate" class="block w-full mt-1 rounded-md shadow-sm" required>
+      
+      <button type="submit" class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-4 rounded mt-4">
+        Submit Consist!
+      </button>
+    </form>
+    
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

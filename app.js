@@ -6,13 +6,16 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.render('index', { numTrains: 1 }); // Pass initial number of trains to the template
 });
 
 app.post('/submit', (req, res) => {

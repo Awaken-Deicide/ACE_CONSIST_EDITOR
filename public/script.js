@@ -1,6 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('trainForm');
   form.addEventListener('submit', handleSubmit);
+
+  const addRowBtn = document.getElementById('addRowBtn');
+  addRowBtn.addEventListener('click', addTrainRow);
+
+  function addTrainRow() {
+    const tableBody = document.getElementById('trainTableBody');
+    const newRow = document.createElement('tr');
+    const newRowIndex = tableBody.children.length + 1; // Calculate the new row index
+    newRow.id = `Train${newRowIndex}`;
+    newRow.innerHTML = `
+      <td><input type="text" name="trainNo${newRowIndex}"></td>
+      <td><input type="text" name="returningTrainNo${newRowIndex}"></td>
+      <td><input type="text" name="loco1-${newRowIndex}"></td>
+      <td><input type="text" name="loco2-${newRowIndex}"></td>
+      <td><input type="text" name="car1-${newRowIndex}"></td>
+      <td><input type="text" name="car2-${newRowIndex}"></td>
+      <td><input type="text" name="car3-${newRowIndex}"></td>
+      <td><input type="text" name="car4-${newRowIndex}"></td>
+      <td><input type="text" name="car5-${newRowIndex}"></td>
+      <td><input type="text" name="car6-${newRowIndex}"></td>
+      <td><input type="text" name="car7-${newRowIndex}"></td>
+      <td><input type="text" name="car8-${newRowIndex}"></td>
+    `;
+    document.getElementById('trainTableBody').appendChild(newRow);
+  }
 });
 
 function showPrompt(message) {
@@ -19,24 +44,26 @@ function handleSubmit(event) {
 
   const formData = [];
 
-  for (let i = 1; i <= 4; i++) {
-    const trainInfo = {
-      trainNo: document.getElementsByName(`trainNo${i}`)[0].value,
-      returningTrainNo: document.getElementsByName(`returningTrainNo${i}`)[0].value,
-      loco1: document.getElementsByName(`loco1${i}`)[0].value,
-      loco2: document.getElementsByName(`loco2${i}`)[0].value,
-      car1: document.getElementsByName(`car1${i}`)[0].value,
-      car2: document.getElementsByName(`car2${i}`)[0].value,
-      car3: document.getElementsByName(`car3${i}`)[0].value,
-      car4: document.getElementsByName(`car4${i}`)[0].value,
-      car5: document.getElementsByName(`car5${i}`)[0].value,
-      car6: document.getElementsByName(`car6${i}`)[0].value,
-      car7: document.getElementsByName(`car7${i}`)[0].value,
-      car8: document.getElementsByName(`car8${i}`)[0].value,
-    };
+  const tableRows = document.querySelectorAll('#trainTableBody tr');
+    tableRows.forEach(row => {
+      const trainInfo = {
+        trainNo: row.querySelector(`input[name^="trainNo"]`).value.toUpperCase(),
+        returningTrainNo: row.querySelector(`input[name^="returningTrainNo"]`).value.toUpperCase(),
+        loco1: row.querySelector(`input[name^="loco1-"]`).value,
+        loco2: row.querySelector(`input[name^="loco1-"]`).value,
+        car1: row.querySelector(`input[name^="car1-"]`).value,
+        car2: row.querySelector(`input[name^="car2-"]`).value,
+        car3: row.querySelector(`input[name^="car3-"]`).value,
+        car4: row.querySelector(`input[name^="car4-"]`).value,
+        car5: row.querySelector(`input[name^="car5-"]`).value,
+        car6: row.querySelector(`input[name^="car6-"]`).value,
+        car7: row.querySelector(`input[name^="car7-"]`).value,
+        car8: row.querySelector(`input[name^="car8-"]`).value,
+        // (extract input values)
+      };
 
     formData.push(trainInfo);
-  }
+  });
 
   formData.push({
     from_date: fromDate,
