@@ -30,25 +30,27 @@
               <th>CAR-6</th>
               <th>CAR-7</th>
               <th>CAR-8</th>
+              <th>ACTIONS</th> <!-- New column for delete button -->
             </tr>
           </thead>
           <tbody id="trainTableBody">
-            <% for (let i = 1; i <= numTrains; i++) { %>
-              <tr id="Train<%= i %>">
-                <td><input type="text" name="trainNo<%= i %>"></td>
-                <td><input type="text" name="returningTrainNo<%= i %>"></td>
-                <td><input type="text" name="loco1-<%= i %>"></td>
-                <td><input type="text" name="loco2-<%= i %>"></td>
-                <td><input type="text" name="car1-<%= i %>"></td>
-                <td><input type="text" name="car2-<%= i %>"></td>
-                <td><input type="text" name="car3-<%= i %>"></td>
-                <td><input type="text" name="car4-<%= i %>"></td>
-                <td><input type="text" name="car5-<%= i %>"></td>
-                <td><input type="text" name="car6-<%= i %>"></td>
-                <td><input type="text" name="car7-<%= i %>"></td>
-                <td><input type="text" name="car8-<%= i %>"></td>
+            <% for (const train of trainData) { %>
+              <tr>
+                <td><input type="text" name="trainNo<%= train.index %>" value="<%= train.trainNo %>" /></td>
+                <td><input type="text" name="returningTrainNo<%= train.index %>" value="<%= train.returningTrainNo %>"></td>
+                <td><input type="text" name="loco1-<%= train.index %>" value="<%= train.loco1 %>"></td>
+                <td><input type="text" name="loco2-<%= train.index %>" value="<%= train.loco2 %>"></td>
+                <td><input type="text" name="car1-<%= train.index %>" value="<%= train.car1 %>"></td>
+                <td><input type="text" name="car2-<%= train.index %>" value="<%= train.car2 %>"></td>
+                <td><input type="text" name="car3-<%= train.index %>" value="<%= train.car3 %>"></td>
+                <td><input type="text" name="car4-<%= train.index %>" value="<%= train.car4 %>"></td>
+                <td><input type="text" name="car5-<%= train.index %>" value="<%= train.car5 %>"></td>
+                <td><input type="text" name="car6-<%= train.index %>" value="<%= train.car6 %>"></td>
+                <td><input type="text" name="car7-<%= train.index %>" value="<%= train.car7 %>"></td>
+                <td><input type="text" name="car8-<%= train.index %>" value="<%= train.car8 %>"></td>
+                <td><button type="button" class="deleteRowBtn bg-purple-700 hover:bg-purple-800 text-white py-1 px-2 rounded">Delete</button></td>
               </tr>
-              <% } %>
+            <% } %>
           </tbody>
         </table>
         

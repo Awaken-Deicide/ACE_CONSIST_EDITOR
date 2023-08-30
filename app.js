@@ -14,8 +14,24 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+const trainDataPath = path.join(__dirname, 'data', 'train_data.json');
+let trainData = [];
+
+try {
+  const rawData = fs.readFileSync(trainDataPath, 'utf-8');
+  trainData = JSON.parse(rawData);
+} catch (error) {
+  console.error('Error reading train data:', error);
+}
+
 app.get('/', (req, res) => {
-  res.render('index', { numTrains: 1 }); // Pass initial number of trains to the template
+  // Filter out any empty or undefined entries from trainData
+  const validTrainData = trainData.filter(train => {
+    const isValidTrain = Object.values(train).some(value => value !== undefined && value !== '');
+    return isValidTrain;
+  });
+
+  res.render('index', { trainData: validTrainData });
 });
 
 app.post('/submit', (req, res) => {
@@ -29,6 +45,9 @@ app.post('/submit', (req, res) => {
   const filePath = path.join(dataDir, 'train_data.json');
 
   fs.writeFileSync(filePath, JSON.stringify(formData, null, 2));
+
+  // Update the trainData variable with the latest data
+  trainData = formData;
 
   res.send('Data submitted and saved to JSON file.');
 });
