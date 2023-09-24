@@ -5,12 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const addRowBtn = document.getElementById('addRowBtn');
   addRowBtn.addEventListener('click', addTrainRow);
 
-  // Populate form fields from sessionStorage data
-  const submittedData = sessionStorage.getItem('submittedData');
-  if (submittedData) {
-    const formData = JSON.parse(submittedData);
-    populateFormFields(formData);
-  }
+  // Fetch data from the server and populate form fields
+  fetch('/api/trains')
+    .then(response => response.json())
+    .then(data => {
+      // Check if data contains both dates and trains properties
+      if (data.dates && data.trains) {
+        // Populate dates
+        document.getElementById('fromDate').value = data.dates.from_date || '';
+        document.getElementById('toDate').value = data.dates.to_date || '';
+
+        // Populate train rows
+        populateFormFields(data.trains);
+      }
+    })
+    .catch(error => console.error(error));
 
   // Delete row buttons functionality
   const deleteRowButtons = document.querySelectorAll('.deleteRowBtn');
@@ -27,18 +36,15 @@ function populateFormFields(formData) {
   formData.forEach((trainInfo, index) => {
     const row = tableRows[index];
     if (row) {
-      row.querySelector(`input[name^="trainNo"]`).value = trainInfo.trainNo;
-      row.querySelector(`input[name^="returningTrainNo"]`).value = trainInfo.returningTrainNo;
-      row.querySelector(`input[name^="loco1-"]`).value = trainInfo.loco1;
-      row.querySelector(`input[name^="loco2-"]`).value = trainInfo.loco2;
-      row.querySelector(`input[name^="car1-"]`).value = trainInfo.car1;
-      row.querySelector(`input[name^="car2-"]`).value = trainInfo.car2;
-      row.querySelector(`input[name^="car3-"]`).value = trainInfo.car3;
-      row.querySelector(`input[name^="car4-"]`).value = trainInfo.car4;
-      row.querySelector(`input[name^="car5-"]`).value = trainInfo.car5;
-      row.querySelector(`input[name^="car6-"]`).value = trainInfo.car6;
-      row.querySelector(`input[name^="car7-"]`).value = trainInfo.car7;
-      row.querySelector(`input[name^="car8-"]`).value = trainInfo.car8;
+      for (const key in trainInfo) {
+        if (key !== '_id' && key !== '__v') {
+          // Skip _id and __v properties
+          const inputField = row.querySelector(`input[name^="${key}"]`);
+          if (inputField) {
+            inputField.value = trainInfo[key];
+          }
+        }
+      }
     }
   });
 }
@@ -49,8 +55,8 @@ function addTrainRow() {
   const newRowIndex = tableBody.children.length + 1; // Calculate the new row index
   newRow.id = `Train${newRowIndex}`;
   newRow.innerHTML = `
-    <td><input type="text" name="trainNo${newRowIndex}"></td>
-    <td><input type="text" name="returningTrainNo${newRowIndex}"></td>
+    <td><input type="text" name="trainNo-${newRowIndex}"></td>
+    <td><input type="text" name="returningTrainNo-${newRowIndex}"></td>
     <td><input type="text" name="loco1-${newRowIndex}"></td>
     <td><input type="text" name="loco2-${newRowIndex}"></td>
     <td><input type="text" name="car1-${newRowIndex}"></td>
@@ -81,7 +87,13 @@ function handleSubmit(event) {
     return; // Stop form submission
   }
 
-  const formData = [];
+  const formData = {
+    dates: {
+      from_date: fromDate,
+      to_date: toDate,
+    },
+    trains: [], // Initialize an empty array for trains data
+  };
 
   const tableRows = document.querySelectorAll('#trainTableBody tr');
   tableRows.forEach(row => {
@@ -100,16 +112,8 @@ function handleSubmit(event) {
       car8: row.querySelector(`input[name^="car8-"]`).value,
     };
 
-    formData.push(trainInfo);
+    formData.trains.push(trainInfo);
   });
-
-  formData.push({
-    from_date: fromDate,
-    to_date: toDate,
-  });
-
-  // Store form data in sessionStorage
-  sessionStorage.setItem('submittedData', JSON.stringify(formData));
 
   fetch('/submit', {
     method: 'POST',

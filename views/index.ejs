@@ -34,7 +34,7 @@
             </tr>
           </thead>
           <tbody id="trainTableBody">
-            <% for (const train of trainData) { %>
+            <% for (const train of trainData.trains) { %>
               <tr>
                 <td><input type="text" name="trainNo<%= train.index %>" value="<%= train.trainNo %>" /></td>
                 <td><input type="text" name="returningTrainNo<%= train.index %>" value="<%= train.returningTrainNo %>"></td>
@@ -48,7 +48,7 @@
                 <td><input type="text" name="car6-<%= train.index %>" value="<%= train.car6 %>"></td>
                 <td><input type="text" name="car7-<%= train.index %>" value="<%= train.car7 %>"></td>
                 <td><input type="text" name="car8-<%= train.index %>" value="<%= train.car8 %>"></td>
-                <td><button type="button" class="deleteRowBtn bg-purple-700 hover:bg-purple-800 text-white py-1 px-2 rounded">Delete</button></td>
+                <td><button type="button" class="deleteRowBtn bg-yellow-400 hover:bg-purple-800 text-white py-1 px-2 rounded">Delete</button></td>
               </tr>
             <% } %>
           </tbody>
